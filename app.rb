@@ -5,8 +5,8 @@ enable :sessions
 
 ################################################################
 ###########                                    #################
-###########     Part 2: Working with Arrays    #################
-###########                BEGIN               #################
+###########    Part 1&2: Working with Arrays   #################
+###########                                    #################
 ###########                                    #################
 ################################################################
 
@@ -44,13 +44,6 @@ get "/about" do
 		"#{greetings.sample(1)[0]}, #{session["first_name"]}!"
 	end
 end
-
-################################################################
-###########                                    #################
-###########     Part 2: Working with Arrays    #################
-###########                 END                #################
-###########                                    #################
-################################################################
 
 
 get '/set_name/:name' do
@@ -130,6 +123,12 @@ get "/incoming/sms" do
 	403
 end
 
+################################################################
+###########                                    #################
+###########     Part 3: Adding Conversation    #################
+###########                                    #################
+###########                                    #################
+################################################################
 
 get "/test/conversation" do #Note that you do not need to include the param in the url, this is fine
 	if !params["Body"].nil? # check if Body is popu
@@ -138,16 +137,14 @@ get "/test/conversation" do #Note that you do not need to include the param in t
 	"Nothing here"
 end
 
-error 404 do
-	"I can’t find that. 404 bad url."
-end
-
-error 403 do
-	"403, Access forbidden"
-end
-
 def determine_response body
 	norm_body = body.strip.downcase
+	################################################################
+	###########                                    #################
+	###########   Part 5:  Refined Conversations   #################
+	###########                                    #################
+	###########                                    #################
+	################################################################
 	if norm_body == "hi"
 		return "Hello I am a happy bot"	
 	elsif norm_body == "who"
@@ -160,6 +157,13 @@ def determine_response body
 		return "I was created on March 27th. 2020"
 	elsif norm_body == "why"
 		return "I am here to help you, you can ask me any question"
+
+	################################################################
+	###########                                    #################
+	###########       Part 4: Tell me a Joke       #################
+	###########                                    #################
+	###########                                    #################
+	################################################################
 	elsif norm_body == "joke"
 		joke_lines = IO.readlines("jokes.txt")
 		return joke_lines.sample
@@ -167,3 +171,12 @@ def determine_response body
 		return "Sorry, I do not understand what you just said."
 	end
 end
+
+error 404 do
+	"I can’t find that. 404 bad url."
+end
+
+error 403 do
+	"403, Access forbidden"
+end
+
