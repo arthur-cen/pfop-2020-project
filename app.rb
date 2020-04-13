@@ -1,8 +1,12 @@
 require 'sinatra'
 require "sinatra/reloader" if development?
+require 'twilio-ruby'
 
 enable :sessions
-
+configure :development do
+	require 'dotenv'
+	Dotenv.load
+  end
 ################################################################
 ###########                                    #################
 ###########    Part 1&2: Working with Arrays   #################
